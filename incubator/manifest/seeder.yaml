@@ -1,0 +1,79 @@
+seeder:
+  version: 0.1.0
+
+  seed: fixed value for seed()
+
+  state:
+    - name: raw sql seed
+      type: postgres # is type correct name for database type?
+      config:
+        - file: db/postgres/master/seed/main.sql
+
+    - name: raw sql seed with tag
+      type: postgres # is type correct name for database type?
+      config:
+        - file: db/postgres/master/seed/main.sql
+      tag:
+        - master
+        - shard1
+        - shard2
+
+    - name: multifile raw sql seed
+      type: postgres
+      config:
+        - file: db/postgres/master/seed/main.sql
+        - file: db/postgres/master/seed/seed1.sql
+        - file: db/postgres/master/seed/seed2.sql
+
+    - name: object definition seed (person)
+      type: postgres
+      config:
+        schema: app
+        table: person
+        collection:
+          - id: 1
+            name: person 1
+            email: person1@example.com
+          - id: 2
+            name: person 2
+            email: person2@example.com
+
+    - name: object definition seed (item)
+      type: postgres
+      config:
+        schema: app
+        table: item
+        collection:
+          - id: 1
+            person_id: 1
+            name: item 1
+            created_at: some date
+            updated_at: some date
+          - id: 2
+            person_id: 1
+            name: item 2
+            created_at: some date
+            updated_at: some date
+          - id: 3
+            person_id: 1
+            name: item 3
+            created_at: some date
+            updated_at: some date
+          - id: 4
+            person_id: 2
+            name: item 4
+            created_at: some date
+            updated_at: some date
+
+    - name: random object seed
+      type: postgres
+      config:
+        schema: app
+        table: article
+        random: # naming?
+          id: sequence | uuid
+          created_at: some date
+          published_at: random date
+          view_count: random int
+          title: string
+          content: long text | lorem ipsum
