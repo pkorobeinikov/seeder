@@ -25,6 +25,16 @@ seeder:
         - file: db/postgres/master/seed/seed1.sql
         - file: db/postgres/master/seed/seed2.sql
 
+    - name: vault seeding
+      type: vault
+      config:
+        - key: foo/bar/baz
+          value: secret
+        - key: quix/waldo/fred
+          file: secret.json
+      tag:
+        - vault
+
     - name: object definition seed (person)
       type: postgres
       config:
