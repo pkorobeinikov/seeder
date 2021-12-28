@@ -65,7 +65,7 @@ seeder:
             created_at: some date
             updated_at: some date
 
-    - name: random object seed
+    - name: random object seed [wip]
       type: postgres
       config:
         schema: app
