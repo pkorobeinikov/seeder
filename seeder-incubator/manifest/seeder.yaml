@@ -28,12 +28,41 @@ seeder:
     - name: vault seeding
       type: vault
       config:
-        - key: foo/bar/baz
-          value: secret
-        - key: quix/waldo/fred
+        - key: secret/data/foo/bar/baz
+          value:
+            data:
+              login: john
+              password: $3cr3t
+        - key: secret/data/flow
+          value: {
+            "data": {
+              "login": "jane",
+              "password": "$3cr3t"
+            }
+          }
+        - key: secret/data/quix/waldo/fred
           file: secret.json
       tag:
         - vault
+
+    - name: redis seeding
+      type: redis
+      config:
+        - key: foo
+          value: foo
+        - key: jsonkey_str
+          value: '{"foo": "foo"}'
+        - key: jsonkey_obj
+          value: {
+            "foo": "foo",
+            "bar": "bar"
+          }
+        - key: jsonkey2_obj
+          value:
+            foo: foo
+            bar: bar
+        - key: bar
+          file: redis.dump # redis> dump key ?
 
     - name: object definition seed (person)
       type: postgres
