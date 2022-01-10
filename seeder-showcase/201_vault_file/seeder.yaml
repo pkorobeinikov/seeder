@@ -5,7 +5,7 @@ seeder:
       config:
         - key: "secret/data/seed/file/json"
           file: seed.json
-#        - key: "secret/data/seed/file/yaml"
-#          file: seed.yaml
-#        - key: "secret/data/seed/file/yml"
-#          file: seed.yml
+        - key: "secret/data/seed/file/yaml"
+          file: seed.yaml
+        - key: "secret/data/seed/file/yml"
+          file: seed.yml

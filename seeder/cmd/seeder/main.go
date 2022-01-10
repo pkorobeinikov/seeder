@@ -10,7 +10,7 @@ import (
 
 	"github.com/hashicorp/vault/api"
 	"github.com/jackc/pgx/v4"
-	"gopkg.in/yaml.v2"
+	"gopkg.in/yaml.v3"
 )
 
 const (
@@ -92,7 +92,11 @@ func main() {
 				case strings.HasSuffix(cfg.File, ".yaml"):
 					fallthrough
 				case strings.HasSuffix(cfg.File, ".yml"):
-
+					err := yaml.Unmarshal(b, &secret)
+					if err != nil {
+						fmt.Println(err)
+						return
+					}
 				default:
 					fmt.Println(errors.New("unsupported file type"))
 					return
