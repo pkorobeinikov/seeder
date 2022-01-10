@@ -1,0 +1,9 @@
+seeder:
+  state:
+    - name: vault json file seed
+      type: vault
+      config:
+        - key: "secret/data/seed/file/json"
+          file: seed.json
+        - key: "secret/data/seed/file/yaml"
+          file: seed.yaml

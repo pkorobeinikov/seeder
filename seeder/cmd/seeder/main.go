@@ -36,31 +36,47 @@ func main() {
 		return
 	}
 
-	connstr, found := os.LookupEnv(SeederPgConnStrEnv)
-	if !found {
-		fmt.Println(errors.New("connection string is not set"))
-		return
-	}
-
-	conn, err := pgx.Connect(ctx, connstr)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	defer conn.Close(ctx)
-
 	for _, state := range s.Seeder.State {
 		for _, cfg := range state.Config {
-			b, err := os.ReadFile(cfg.File)
-			if err != nil {
-				fmt.Println(err)
-				return
-			}
+			switch state.Type {
+			case "postgres":
+				connstr, found := os.LookupEnv(SeederPgConnStrEnv)
+				if !found {
+					fmt.Println(errors.New("connection string is not set"))
+					return
+				}
 
-			_, err = conn.Exec(ctx, string(b))
-			if err != nil {
-				fmt.Println(err)
-				return
+				conn, err := pgx.Connect(ctx, connstr)
+				if err != nil {
+					fmt.Println(err)
+					return
+				}
+
+				b, err := os.ReadFile(cfg.File)
+				if err != nil {
+					fmt.Println(err)
+					return
+				}
+
+				_, err = conn.Exec(ctx, string(b))
+				if err != nil {
+					fmt.Println(err)
+					return
+				}
+
+				err = conn.Close(ctx)
+				if err != nil {
+					fmt.Println(err)
+					return
+				}
+			case "vault":
+				b, err := os.ReadFile(cfg.File)
+				if err != nil {
+					fmt.Println(err)
+					return
+				}
+
+				fmt.Println(cfg.Key, cfg.File, string(b))
 			}
 		}
 	}
@@ -83,5 +99,6 @@ type (
 
 	Config struct {
 		File string `yaml:"file"`
+		Key  string `yaml:"key"`
 	}
 )
