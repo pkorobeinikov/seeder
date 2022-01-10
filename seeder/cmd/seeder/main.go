@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"os"
 
@@ -9,7 +10,11 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-const SeederYaml = "seeder.yaml"
+const (
+	SeederYaml = "seeder.yaml"
+
+	SeederPgConnStrEnv = "SEEDER_PG_CONNSTR"
+)
 
 func main() {
 	var (
@@ -31,7 +36,11 @@ func main() {
 		return
 	}
 
-	connstr := "postgres://postgres:secret@localhost:5432/seeder?sslmode=disable"
+	connstr, found := os.LookupEnv(SeederPgConnStrEnv)
+	if !found {
+		fmt.Println(errors.New("connection string is not set"))
+		return
+	}
 
 	conn, err := pgx.Connect(ctx, connstr)
 	if err != nil {

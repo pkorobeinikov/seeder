@@ -2,6 +2,9 @@
   <configuration default="false" name="seeder :: 102_postgres_file_plpgsql" type="GoApplicationRunConfiguration" factoryName="Go Application">
     <module name="seeder" />
     <working_directory value="$PROJECT_DIR$/seeder-showcase/102_postgres_file_plpgsql" />
+    <envs>
+      <env name="SEEDER_PG_CONNSTR" value="postgres://postgres:secret@localhost:5432/seeder?sslmode=disable" />
+    </envs>
     <EXTENSION ID="net.ashald.envfile">
       <option name="IS_ENABLED" value="false" />
       <option name="IS_SUBST" value="false" />
