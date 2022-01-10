@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="seeder/cmd/seeder/main.go" type="GoApplicationRunConfiguration" factoryName="Go Application">
+  <configuration default="false" name="seeder :: 102_postgres_file_plpgsql" type="GoApplicationRunConfiguration" factoryName="Go Application">
     <module name="seeder" />
-    <working_directory value="$PROJECT_DIR$" />
+    <working_directory value="$PROJECT_DIR$/seeder-showcase/102_postgres_file_plpgsql" />
     <EXTENSION ID="net.ashald.envfile">
       <option name="IS_ENABLED" value="false" />
       <option name="IS_SUBST" value="false" />
