@@ -1,6 +1,6 @@
 # seeder
 
-The only tool for seeding databases.
+The only tool for seeding storages (including databases as well).
 
 ## Similar projects
 
