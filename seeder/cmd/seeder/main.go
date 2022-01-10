@@ -2,10 +2,13 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"os"
+	"strings"
 
+	"github.com/hashicorp/vault/api"
 	"github.com/jackc/pgx/v4"
 	"gopkg.in/yaml.v2"
 )
@@ -13,7 +16,9 @@ import (
 const (
 	SeederYaml = "seeder.yaml"
 
-	SeederPgConnStrEnv = "SEEDER_PG_CONNSTR"
+	SeederPgConnStrEnv    = "SEEDER_PG_CONNSTR"
+	SeederVaultAddressEnv = "SEEDER_VAULT_ADDRESS"
+	SeederVaultTokenEnv   = "SEEDER_VAULT_TOKEN"
 )
 
 func main() {
@@ -76,7 +81,52 @@ func main() {
 					return
 				}
 
-				fmt.Println(cfg.Key, cfg.File, string(b))
+				var secret map[string]interface{}
+				switch {
+				case strings.HasSuffix(cfg.File, ".json"):
+					err := json.Unmarshal(b, &secret)
+					if err != nil {
+						fmt.Println(err)
+						return
+					}
+				case strings.HasSuffix(cfg.File, ".yaml"):
+					fallthrough
+				case strings.HasSuffix(cfg.File, ".yml"):
+
+				default:
+					fmt.Println(errors.New("unsupported file type"))
+					return
+				}
+
+				vaultAddr, found := os.LookupEnv(SeederVaultAddressEnv)
+				if !found {
+					fmt.Println(errors.New("vault address not set"))
+					return
+				}
+
+				vaultToken, found := os.LookupEnv(SeederVaultTokenEnv)
+				if !found {
+					fmt.Println(errors.New("vault token not set"))
+					return
+				}
+
+				config := &api.Config{
+					Address: vaultAddr,
+				}
+
+				client, err := api.NewClient(config)
+				if err != nil {
+					fmt.Println(err)
+					return
+				}
+
+				client.SetToken(vaultToken)
+
+				_, err = client.Logical().Write(cfg.Key, secret)
+				if err != nil {
+					fmt.Println(err)
+					return
+				}
 			}
 		}
 	}

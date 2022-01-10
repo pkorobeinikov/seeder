@@ -1,0 +1,5 @@
+---
+data:
+  login: yml
+  password: secret
+...

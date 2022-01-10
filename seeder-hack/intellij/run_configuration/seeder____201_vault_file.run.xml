@@ -2,6 +2,10 @@
   <configuration default="false" name="seeder :: 201_vault_file" type="GoApplicationRunConfiguration" factoryName="Go Application">
     <module name="seeder" />
     <working_directory value="$PROJECT_DIR$/seeder-showcase/201_vault_file" />
+    <envs>
+      <env name="SEEDER_VAULT_ADDRESS" value="http://localhost:8200" />
+      <env name="SEEDER_VAULT_TOKEN" value="secret" />
+    </envs>
     <EXTENSION ID="net.ashald.envfile">
       <option name="IS_ENABLED" value="false" />
       <option name="IS_SUBST" value="false" />
