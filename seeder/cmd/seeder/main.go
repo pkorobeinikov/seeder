@@ -7,13 +7,15 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
+const SeederYaml = "seeder.yaml"
+
 func main() {
 	var (
 		err error
 		s   Spec
 	)
 
-	b, err := os.ReadFile("seeder-showcase/101_postgres_file/seeder.yaml")
+	b, err := os.ReadFile(SeederYaml)
 	if err != nil {
 		fmt.Println(err)
 		return
