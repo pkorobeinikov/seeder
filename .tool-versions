@@ -1,2 +1,5 @@
 golang 1.17.6
 vault 1.9.2+ent
+bats v1.5.0
+jq 1.6
+yq 4.9.8
