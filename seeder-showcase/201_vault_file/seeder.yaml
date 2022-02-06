@@ -1,6 +1,6 @@
 seeder:
   state:
-    - name: vault json file seed
+    - name: vault file seed
       type: vault
       config:
         - key: "secret/data/seed/file/json"
