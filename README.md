@@ -7,7 +7,28 @@ The only tool for seeding storages (including databases as well).
 ```yaml
 seeder:
   state:
-    # seeding vault secretes
+    # seeding s3 data
+    - name: s3 plain text file seed
+      type: s3
+      config:
+        - bucket: "bucket"
+          object-name: "seeded/file/seed.txt"
+          option:
+            content-type: text/plain
+            content-encoding: utf8
+          file: seed.txt
+
+    - name: s3 json file seed
+      type: s3
+      config:
+        - bucket: "bucket"
+          object-name: "seeded/file/seed.json"
+          option:
+            content-type: application/json
+            content-encoding: utf8
+          file: seed.json
+
+    # seeding vault secrets
     - name: vault file seed
       type: vault
       config:

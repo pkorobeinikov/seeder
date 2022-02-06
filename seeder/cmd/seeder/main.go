@@ -10,15 +10,22 @@ import (
 
 	"github.com/hashicorp/vault/api"
 	"github.com/jackc/pgx/v4"
+	"github.com/minio/minio-go/v7"
+	"github.com/minio/minio-go/v7/pkg/credentials"
 	"gopkg.in/yaml.v3"
 )
 
 const (
 	SeederYaml = "seeder.yaml"
 
-	SeederPgConnStrEnv    = "SEEDER_PG_CONNSTR"
+	SeederPgConnStrEnv = "SEEDER_PG_CONNSTR"
+
 	SeederVaultAddressEnv = "SEEDER_VAULT_ADDRESS"
 	SeederVaultTokenEnv   = "SEEDER_VAULT_TOKEN"
+
+	SeederS3EndpointEnv        = "SEEDER_S3_ENDPOINT"
+	SeederS3AccessKeyIDEnv     = "SEEDER_S3_ACCESS_KEY_ID"
+	SeederS3SecretAccessKeyEnv = "SEEDER_S3_SECRET_ACCESS_KEY"
 )
 
 func main() {
@@ -131,6 +138,56 @@ func main() {
 					fmt.Println(err)
 					return
 				}
+			case "s3":
+				useSSL := false
+
+				s3Endpoint, found := os.LookupEnv(SeederS3EndpointEnv)
+				if !found {
+					fmt.Println(errors.New("s3 access id key not set"))
+					return
+				}
+
+				s3AccessKeyID, found := os.LookupEnv(SeederS3AccessKeyIDEnv)
+				if !found {
+					fmt.Println(errors.New("s3 access id key not set"))
+					return
+				}
+
+				s3SecretAccessKey, found := os.LookupEnv(SeederS3SecretAccessKeyEnv)
+				if !found {
+					fmt.Println(errors.New("s3 secret access key not set"))
+					return
+				}
+
+				minioClient, err := minio.New(s3Endpoint, &minio.Options{
+					Creds:  credentials.NewStaticV4(s3AccessKeyID, s3SecretAccessKey, ""),
+					Secure: useSSL,
+				})
+				if err != nil {
+					fmt.Println(err)
+					return
+				}
+
+				location := "us-east-1"
+				err = minioClient.MakeBucket(ctx, cfg.Bucket, minio.MakeBucketOptions{Region: location})
+				if err != nil {
+					exists, errBucketExists := minioClient.BucketExists(ctx, cfg.Bucket)
+					if errBucketExists == nil && !exists {
+						fmt.Println(err)
+						return
+					}
+				}
+
+				_, err = minioClient.FPutObject(ctx, cfg.Bucket, cfg.ObjectName, cfg.File, minio.PutObjectOptions{
+					ContentType:     cfg.Option.ContentType,
+					ContentEncoding: cfg.Option.ContentEncoding,
+				})
+				if err != nil {
+					fmt.Println(err)
+					return
+				}
+			default:
+				fmt.Println(errors.New("unsupported seed type"))
 			}
 		}
 	}
@@ -152,7 +209,15 @@ type (
 	}
 
 	Config struct {
-		File string `yaml:"file"`
-		Key  string `yaml:"key"`
+		File       string `yaml:"file"`
+		Key        string `yaml:"key"`
+		Bucket     string `yaml:"bucket"`
+		ObjectName string `yaml:"object-name"`
+		Option     Option `yaml:"option"`
+	}
+
+	Option struct {
+		ContentType     string `yaml:"content-type"`
+		ContentEncoding string `yaml:"content-encoding"`
 	}
 )
