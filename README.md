@@ -2,7 +2,7 @@
 
 The only tool for seeding volumes and storages (including databases as well).
 
-## Example config — seeder.yaml
+## Example config: `seeder.yaml`
 
 ```yaml
 seeder:
