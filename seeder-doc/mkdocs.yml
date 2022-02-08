@@ -13,4 +13,8 @@ nav:
       - Postgresql: tutorial/postgresql.md
       - S3: tutorial/s3.md
       - Vault: tutorial/vault.md
-
+  - Разработка:
+      - ADR:
+          - 1. Record architecture decisions: development/adr/0001-record-architecture-decisions.md
+          - 2. Use strict YAML configuration format: development/adr/0002-use-strict-yaml-configuration-format.md
+          - 3. Vault seeding spec: development/adr/0003-vault-seeding-spec.md
