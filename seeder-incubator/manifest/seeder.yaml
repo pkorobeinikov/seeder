@@ -25,6 +25,32 @@ seeder:
         - file: db/postgres/master/seed/seed1.sql
         - file: db/postgres/master/seed/seed2.sql
 
+    - name: event bus (kafka) plain seed
+      type: eventbus/kafka
+      config:
+        - topic: topic-plain
+          message: db/eventbus/kafka/message.json
+
+    - name: event bus (kafka) protobuf seed
+      type: eventbus/kafka
+      config:
+        - topic: topic-protobuf
+          message: db/eventbus/kafka/message.json
+          proto: pb/eventbus/kafka/pb.proto
+
+    - name: event bus (pulsar) plain seed
+      type: eventbus/pulsar
+      config:
+        - topic: topic-plain
+          message: db/eventbus/pulsar/message.json
+
+    - name: event bus (pulsar) protobuf seed
+      type: eventbus/pulsar
+      config:
+        - topic: topic-protobuf
+          message: db/eventbus/pulsar/message.json
+          proto: pb/eventbus/pulsar/pb.proto
+
     - name: vault seeding
       type: vault
       config:
