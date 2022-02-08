@@ -1,0 +1,14 @@
+version: '3'
+
+tasks:
+
+  doc:run:
+    desc: Run documentation locally
+    cmds:
+      - |
+        docker run \
+          --pull always \
+          --rm \
+          -p 8000:8000 \
+          -v ${PWD}/seeder-doc:/docs \
+          squidfunk/mkdocs-material

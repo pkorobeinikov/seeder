@@ -1,6 +1,6 @@
 # seeder
 
-The only tool for seeding storages (including databases as well).
+The only tool for seeding volumes and storages (including databases as well).
 
 ## Example config
 

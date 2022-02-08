@@ -1,0 +1,16 @@
+site_name: seeder
+theme:
+  name: material
+  features:
+    - toc.integrate
+    - navigation.tracking
+nav:
+  - Введение: index.md
+  - Установка:
+      - Из исходного кода: install/from-source-code.md
+  - Быстрый старт: quick-start.md
+  - Туториал:
+      - Postgresql: tutorial/postgresql.md
+      - S3: tutorial/s3.md
+      - Vault: tutorial/vault.md
+
