@@ -12,3 +12,8 @@ tasks:
           -p 8000:8000 \
           -v ${PWD}/seeder-doc:/docs \
           squidfunk/mkdocs-material
+
+  build:image:
+    desc: Build Docker image
+    cmds:
+      - docker build --tag seeder --file Dockerfile seeder
