@@ -6,6 +6,7 @@ require (
 	github.com/hashicorp/vault/api v1.3.1
 	github.com/jackc/pgx/v4 v4.14.1
 	github.com/minio/minio-go/v7 v7.0.21
+	github.com/pkg/errors v0.9.1
 	gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c
 )
 
