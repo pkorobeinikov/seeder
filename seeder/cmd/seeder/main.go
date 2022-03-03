@@ -11,6 +11,7 @@ import (
 	"github.com/pkorobeinikov/seeder/seeder"
 	"gopkg.in/yaml.v3"
 
+	_ "github.com/pkorobeinikov/seeder/seeder/internal/kafka"
 	_ "github.com/pkorobeinikov/seeder/seeder/internal/postgres"
 	_ "github.com/pkorobeinikov/seeder/seeder/internal/s3"
 	_ "github.com/pkorobeinikov/seeder/seeder/internal/vault"

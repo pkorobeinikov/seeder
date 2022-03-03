@@ -1,0 +1,11 @@
+seeder:
+  state:
+    - name: kafka seed json file
+      type: kafka
+      config:
+        - file: seed.json
+
+    - name: kafka seed yml file
+      type: kafka
+      config:
+        - file: seed.yml

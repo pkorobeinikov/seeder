@@ -1,0 +1,16 @@
+[
+    {
+        "topic": "my_topic.1",
+        "value": {
+            "foo": 1,
+            "boo": "text"
+        }
+    },
+    {
+        "topic": "my_topic.2",
+        "value": {
+            "foo": 2,
+            "boo": "another text"
+        }
+    }
+]

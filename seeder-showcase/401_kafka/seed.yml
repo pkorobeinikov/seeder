@@ -1,0 +1,11 @@
+---
+data:
+  - topic: foo_topic.1
+    value:
+      id: 1
+      name: "alice"
+  - topic: foo_topic.2
+    value:
+      id: 2
+      name: "bob"
+...
