@@ -121,9 +121,9 @@ type (
 		GetValue() []byte
 	}
 	jsonSeed struct {
-		Topic string          `json:"topic" yaml:"topic"`
-		Key   string          `json:"key" yaml:"key"`
-		Value json.RawMessage `json:"value" yaml:"value"`
+		Topic string          `json:"topic"`
+		Key   string          `json:"key"`
+		Value json.RawMessage `json:"value"`
 	}
 	msi map[string]interface{}
 )
