@@ -2,6 +2,13 @@
 
 The only tool for seeding volumes and storages (including databases as well).
 
+## Known seeders
+
+- s3
+- vault
+- postgres
+- kafka
+
 ## Example config: `seeder.yaml`
 
 ```yaml
