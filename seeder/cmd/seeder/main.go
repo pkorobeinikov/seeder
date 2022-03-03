@@ -41,7 +41,7 @@ func main() {
 		}
 
 		if !isExists {
-			printErr(errors.Errorf("unknown seeder: %s", &showSeederHelp))
+			printErr(errors.Errorf("unknown seeder: %s", *showSeederHelp))
 			return
 		}
 
