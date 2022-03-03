@@ -11,6 +11,13 @@ The only tool for seeding volumes and storages (including databases as well).
 
 ## Example config: `seeder.yaml`
 
+## Install
+
+```shell
+$ go install ./cmd/...
+```
+
+
 ```yaml
 seeder:
   state:
