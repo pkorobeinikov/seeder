@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"io"
 	"os"
 	"path/filepath"
 
@@ -15,6 +16,8 @@ import (
 
 const (
 	SeederKafkaPeerEnv = "SEEDER_KAFKA_PEER"
+
+	seederType = "kafka"
 )
 
 func Seed(ctx context.Context, cfg seeder.Config) error {
@@ -111,10 +114,6 @@ func newSyncProducer(brokerList []string) (sarama.SyncProducer, error) {
 	return p, nil
 }
 
-func init() {
-	seeder.DefaultRegistry().RegisterSeeder(Seed, "kafka")
-}
-
 type (
 	seed interface {
 		GetTopic() string
@@ -168,4 +167,59 @@ func getMapValueAsBytes(m msi, key string) []byte {
 	}
 
 	return b
+}
+
+func init() {
+	seeder.DefaultRegistry().RegisterSeeder(Seed, seederType)
+
+	seeder.DefaultRegistry().RegisterSeederHelp(
+		func(w io.Writer) {
+			_, _ = fmt.Fprintf(
+				w,
+				`Kafka seeder env variables:
+
+- %s: peer address, example: 127.0.0.1:9092
+
+
+Run example (in folder "seeder-showcase"):
+
+$ SEEDER_KAFKA_PEER=127.0.0.1:9092 seeder -c ./401_kafka/seeder.yaml
+
+
+Json seed file example:
+
+[
+    {
+        "topic": "my_topic.1",    // required
+        "key": "boo",             // optional
+        "value": {                // required
+            "id": 1,
+            "name": "alice"
+        }
+    }
+]
+
+
+Yaml seed file example:
+
+---
+data:
+  - topic: foo_topic.1
+    value:
+      id: 1
+      name: "alice"
+  - topic: foo_topic.2
+    key: "foo"
+    value:
+      id: 2
+      name: "bob"
+...
+
+`,
+				SeederKafkaPeerEnv,
+			)
+		},
+		seederType,
+	)
+
 }

@@ -5,6 +5,7 @@ data:
       id: 1
       name: "alice"
   - topic: foo_topic.2
+    key: "foo"
     value:
       id: 2
       name: "bob"

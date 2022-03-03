@@ -23,8 +23,35 @@ func main() {
 		s   seeder.Spec
 	)
 
+	r := seeder.DefaultRegistry()
+
 	seederYaml := flag.String("c", "./seeder.yml", "config file")
+	showSeederHelp := flag.String("seeder-help", "", "show seeder help (ex: -seeder-help kafka)")
 	flag.Parse()
+
+	if *showSeederHelp != "" {
+		known := r.ListKnownTypes()
+
+		var isExists bool = false
+		for _, v := range known {
+			if v == *showSeederHelp {
+				isExists = true
+				break
+			}
+		}
+
+		if !isExists {
+			printErr(errors.Errorf("unknown seeder: %s", &showSeederHelp))
+			return
+		}
+
+		r.ShowSeederHelp(*showSeederHelp, os.Stdout)
+		return
+	}
+
+	//
+	// main
+	//
 
 	wd := filepath.Dir(*seederYaml)
 	if wd != "" {
@@ -44,8 +71,6 @@ func main() {
 		printErr(errors.Wrap(err, "unmarshal config"))
 		return
 	}
-
-	r := seeder.DefaultRegistry()
 
 	for _, state := range s.Seeder.State {
 		for i := range state.Config {

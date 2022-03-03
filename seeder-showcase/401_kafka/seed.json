@@ -2,15 +2,16 @@
     {
         "topic": "my_topic.1",
         "value": {
-            "foo": 1,
-            "boo": "text"
+            "id": 1,
+            "name": "alice"
         }
     },
     {
         "topic": "my_topic.2",
+        "key": "boo",
         "value": {
-            "foo": 2,
-            "boo": "another text"
+            "id": 2,
+            "name": "bob"
         }
     }
 ]
