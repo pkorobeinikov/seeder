@@ -14,6 +14,7 @@ The only tool for seeding volumes and storages (including databases as well).
 ## Install
 
 ```shell
+$ cd ./seeder
 $ go install ./cmd/...
 ```
 
