@@ -208,13 +208,13 @@ Run example (in folder "seeder-showcase"):
 $ SEEDER_KAFKA_PEER=127.0.0.1:9092 seeder -c ./401_kafka/seeder.yaml
 
 
-Json seed file example:
+JSON seed file example:
 
 [
     {
         "topic": "my_topic.1",    // required
         "key": "boo",             // optional
-        "value": {                // required
+        "value": {                // optional
             "id": 1,
             "name": "alice"
         }
@@ -222,7 +222,7 @@ Json seed file example:
 ]
 
 
-Yaml seed file example:
+YAML seed file example:
 
 ---
 data:
