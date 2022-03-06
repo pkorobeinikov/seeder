@@ -20,21 +20,15 @@ const (
 	seederType = "kafka"
 )
 
-func Seed(ctx context.Context, cfg seeder.Config) error {
+type kafkaSeeder struct {
+	sp sarama.SyncProducer
+}
 
-	peer, found := os.LookupEnv(SeederKafkaPeerEnv)
-	if !found {
-		return errors.New("connection string is not set")
-	}
+func (s *kafkaSeeder) Seed(ctx context.Context, cfg seeder.Config) (n int, err error) {
 
 	b, err := os.ReadFile(cfg.File)
 	if err != nil {
-		return errors.Wrap(err, "read file")
-	}
-
-	p, err := newSyncProducer([]string{peer})
-	if err != nil {
-		return errors.Wrap(err, "new sync producer")
+		return -1, errors.Wrap(err, "read file")
 	}
 
 	var payload []seed
@@ -47,7 +41,7 @@ func Seed(ctx context.Context, cfg seeder.Config) error {
 		var p []*jsonSeed
 		err := json.Unmarshal(b, &p)
 		if err != nil {
-			return errors.Wrap(err, "unmarshal json")
+			return -1, errors.Wrap(err, "unmarshal json")
 		}
 
 		for i := range p {
@@ -61,12 +55,12 @@ func Seed(ctx context.Context, cfg seeder.Config) error {
 
 		err := yaml.Unmarshal(b, &p)
 		if err != nil {
-			return errors.Wrap(err, "unmarshal yaml")
+			return -1, errors.Wrap(err, "unmarshal yaml")
 		}
 
 		data, ok := p["data"].([]interface{})
 		if !ok {
-			return errors.New("bad data format, expected array")
+			return -1, errors.New("bad data format, expected array")
 		}
 
 		for i := range data {
@@ -74,29 +68,42 @@ func Seed(ctx context.Context, cfg seeder.Config) error {
 			j := jsonSeed{
 				Topic: getMapValueAsString(v, "topic"),
 				Key:   getMapValueAsString(v, "key"),
-				Value: getMapValueAsBytes(v, "value"),
+				Value: getMapValueAsJSONBytes(v, "value"),
 			}
 			payload = append(payload, &j)
 		}
 
 	default:
-		return errors.Errorf("unsupported file type: %s", ext)
+		return -1, errors.Errorf("unsupported file type: %s", ext)
+	}
+
+	// pre-check payload
+	for i, v := range payload {
+		if v.GetTopic() == "" {
+			return -1, errors.Errorf("seed row is missing topic: index=%d", i)
+		}
 	}
 
 	for _, v := range payload {
-		_, offset, err := p.SendMessage(&sarama.ProducerMessage{
+		errCtx := ctx.Err()
+		if errCtx != nil {
+			return -1, errors.Wrap(err, "sending messaged")
+		}
+
+		_, offset, err := s.sp.SendMessage(&sarama.ProducerMessage{
 			Topic: v.GetTopic(),
 			Key:   sarama.StringEncoder(v.GetKey()),
 			Value: sarama.ByteEncoder(v.GetValue()),
 		})
 		if err != nil {
-			return errors.Wrapf(err, "kafka: send message: offset=%d", offset)
+			return n, errors.Wrapf(err, "kafka: send message: offset=%d", offset)
 		}
+		n++
 	}
 
 	fmt.Println("seeded items:", len(payload))
 
-	return nil
+	return n, nil
 }
 
 func newSyncProducer(brokerList []string) (sarama.SyncProducer, error) {
@@ -154,8 +161,7 @@ func getMapValueAsString(m msi, key string) string {
 	return s
 }
 
-// fixme: naming or move to builder
-func getMapValueAsBytes(m msi, key string) []byte {
+func getMapValueAsJSONBytes(m msi, key string) []byte {
 	mm, ok := m[key]
 	if !ok {
 		return nil
@@ -170,7 +176,23 @@ func getMapValueAsBytes(m msi, key string) []byte {
 }
 
 func init() {
-	seeder.DefaultRegistry().RegisterSeeder(Seed, seederType)
+	seeder.DefaultRegistry().RegisterSeeder(func(ctx context.Context, cfg seeder.Config) error {
+		peer, found := os.LookupEnv(SeederKafkaPeerEnv)
+		if !found {
+			return errors.New("connection string is not set")
+		}
+
+		p, err := newSyncProducer([]string{peer})
+		if err != nil {
+			return errors.Wrap(err, "new sync producer")
+		}
+
+		k := kafkaSeeder{sp: p}
+
+		_, err = k.Seed(ctx, cfg)
+
+		return err
+	}, seederType)
 
 	seeder.DefaultRegistry().RegisterSeederHelp(
 		func(w io.Writer) {
