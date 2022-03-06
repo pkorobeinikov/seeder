@@ -10,6 +10,7 @@ import (
 var defaultRegistry *registry
 
 type (
+	// Not thread safe.
 	registry struct {
 		seeders       map[string]SeedFunc
 		seederHelpers map[string]HelpFunc
