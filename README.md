@@ -16,6 +16,13 @@ $ cd ./seeder
 $ go install ./cmd/...
 ```
 
+## Flags
+
+- `-c` allows to specify seeder configuration file.
+  > Note: dir from config file will be used as working dir for seed files.
+- `-seeder-helper $name` shows help for specified seeder.
+- `-known` shows known seeders
+
 ## Example config: `seeder.yaml`
 
 ```yaml
