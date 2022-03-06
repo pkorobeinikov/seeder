@@ -9,8 +9,6 @@ The only tool for seeding volumes and storages (including databases as well).
 - postgres
 - kafka
 
-## Example config: `seeder.yaml`
-
 ## Install
 
 ```shell
@@ -18,6 +16,7 @@ $ cd ./seeder
 $ go install ./cmd/...
 ```
 
+## Example config: `seeder.yaml`
 
 ```yaml
 seeder:
