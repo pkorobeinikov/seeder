@@ -2,7 +2,9 @@ package seeder
 
 import (
 	"context"
+	"fmt"
 	"io"
+	"sort"
 
 	"github.com/pkg/errors"
 )
@@ -41,6 +43,8 @@ func (s *registry) ListKnownTypes() []string {
 		r = append(r, i)
 	}
 
+	sort.Strings(r)
+
 	return r
 }
 
@@ -58,6 +62,7 @@ func (s *registry) ShowSeederHelp(type_ string, w io.Writer) {
 
 	f, ok := s.seederHelpers[type_]
 	if !ok {
+		_, _ = fmt.Fprintln(w, "No help for specified seeder.")
 		return
 	}
 

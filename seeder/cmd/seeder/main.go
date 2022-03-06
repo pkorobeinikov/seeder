@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/pkg/errors"
 	"github.com/pkorobeinikov/seeder/seeder"
@@ -27,6 +28,7 @@ func main() {
 
 	seederYaml := flag.String("c", "./seeder.yml", "config file")
 	showSeederHelp := flag.String("seeder-help", "", "show seeder help (ex: -seeder-help kafka)")
+	knownSeeders := flag.Bool("known", false, "show known seeders list")
 	flag.Parse()
 
 	if *showSeederHelp != "" {
@@ -46,6 +48,12 @@ func main() {
 		}
 
 		r.ShowSeederHelp(*showSeederHelp, os.Stdout)
+		return
+	}
+
+	if *knownSeeders {
+		known := r.ListKnownTypes()
+		fmt.Printf("Known seeders: %s\n", strings.Join(known, ", "))
 		return
 	}
 
