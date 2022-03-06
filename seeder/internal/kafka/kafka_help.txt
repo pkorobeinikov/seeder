@@ -1,0 +1,39 @@
+Kafka seeder env variables:
+
+- %[1]s: peer address, example: 127.0.0.1:9092
+
+
+Run example (in folder "seeder-showcase"):
+
+$ %[1]s=127.0.0.1:9092 seeder -c ./401_kafka/seeder.yaml
+
+
+JSON seed file example:
+
+[
+    {
+        "topic": "my_topic.1",    // required
+        "key": "boo",             // optional
+        "value": {                // optional
+            "id": 1,
+            "name": "alice"
+        }
+    }
+]
+
+
+YAML seed file example:
+
+---
+data:
+  - topic: foo_topic.1
+    value:
+      id: 1
+      name: "alice"
+  - topic: foo_topic.2
+    key: "foo"
+    value:
+      id: 2
+      name: "bob"
+...
+

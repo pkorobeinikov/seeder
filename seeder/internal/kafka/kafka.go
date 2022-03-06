@@ -2,6 +2,7 @@ package kafka
 
 import (
 	"context"
+	_ "embed"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -19,6 +20,9 @@ const (
 
 	seederType = "kafka"
 )
+
+//go:embed "kafka_help.txt"
+var help string
 
 type kafkaSeeder struct {
 	sp sarama.SyncProducer
@@ -196,52 +200,8 @@ func init() {
 
 	seeder.DefaultRegistry().RegisterSeederHelp(
 		func(w io.Writer) {
-			_, _ = fmt.Fprintf(
-				w,
-				`Kafka seeder env variables:
-
-- %s: peer address, example: 127.0.0.1:9092
-
-
-Run example (in folder "seeder-showcase"):
-
-$ SEEDER_KAFKA_PEER=127.0.0.1:9092 seeder -c ./401_kafka/seeder.yaml
-
-
-JSON seed file example:
-
-[
-    {
-        "topic": "my_topic.1",    // required
-        "key": "boo",             // optional
-        "value": {                // optional
-            "id": 1,
-            "name": "alice"
-        }
-    }
-]
-
-
-YAML seed file example:
-
----
-data:
-  - topic: foo_topic.1
-    value:
-      id: 1
-      name: "alice"
-  - topic: foo_topic.2
-    key: "foo"
-    value:
-      id: 2
-      name: "bob"
-...
-
-`,
-				SeederKafkaPeerEnv,
-			)
+			_, _ = fmt.Fprintf(w, help, SeederKafkaPeerEnv)
 		},
 		seederType,
 	)
-
 }
