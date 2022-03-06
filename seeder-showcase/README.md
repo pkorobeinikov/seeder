@@ -13,7 +13,7 @@ Current folder contains working seeder usage examples.
 
 2. Wait until all containers are up and running.
 3. Run any seeder (in new console).
-4. Check seeded data with suitable tool.
+4. Check seeded data by opening in browser http://localhost:9000.
 5. Stop containers by pressing Ctrl-c.
 
 ### Kafka seeder
