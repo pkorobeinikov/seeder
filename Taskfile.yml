@@ -13,7 +13,12 @@ tasks:
           -v ${PWD}/seeder-doc:/docs \
           squidfunk/mkdocs-material
 
-  build:image:
+  image:build:
     desc: Build Docker image
     cmds:
-      - docker build --tag seeder --file Dockerfile seeder
+      - docker build --tag ghcr.io/pkorobeinikov/seeder --file Dockerfile seeder
+
+  image:push:
+    desc: Publish Docker image
+    cmds:
+      - docker push ghcr.io/pkorobeinikov/seeder
