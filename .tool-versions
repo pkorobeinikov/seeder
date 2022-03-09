@@ -1,4 +1,4 @@
-golang 1.17.6
+golang 1.17.8
 vault 1.9.2+ent
 bats v1.5.0
 jq 1.6
