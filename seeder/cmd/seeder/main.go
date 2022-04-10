@@ -9,8 +9,9 @@ import (
 	"strings"
 
 	"github.com/pkg/errors"
-	"github.com/pkorobeinikov/seeder/seeder"
 	"gopkg.in/yaml.v3"
+
+	"github.com/pkorobeinikov/seeder/seeder"
 
 	_ "github.com/pkorobeinikov/seeder/seeder/internal/kafka"
 	_ "github.com/pkorobeinikov/seeder/seeder/internal/postgres"
@@ -26,7 +27,7 @@ func main() {
 
 	r := seeder.DefaultRegistry()
 
-	seederYaml := flag.String("c", "./seeder.yml", "config file")
+	seederYaml := flag.String("c", "seeder.yaml", "config file")
 	showSeederHelp := flag.String("seeder-help", "", "show seeder help (ex: -seeder-help kafka)")
 	knownSeeders := flag.Bool("known", false, "show known seeders list")
 	flag.Parse()
