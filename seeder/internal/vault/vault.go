@@ -8,8 +8,9 @@ import (
 
 	"github.com/hashicorp/vault/api"
 	"github.com/pkg/errors"
-	"github.com/pkorobeinikov/seeder/seeder"
 	"gopkg.in/yaml.v3"
+
+	"github.com/pkorobeinikov/seeder/seeder"
 )
 
 const (
@@ -18,7 +19,6 @@ const (
 )
 
 func Seed(_ context.Context, cfg seeder.Config) error {
-
 	b, err := os.ReadFile(cfg.File)
 	if err != nil {
 		return errors.Wrap(err, "read file")
@@ -31,9 +31,7 @@ func Seed(_ context.Context, cfg seeder.Config) error {
 		if err != nil {
 			return errors.Wrap(err, "unmarshal json")
 		}
-	case strings.HasSuffix(cfg.File, ".yaml"):
-		fallthrough
-	case strings.HasSuffix(cfg.File, ".yml"):
+	case strings.HasSuffix(cfg.File, ".yaml"), strings.HasSuffix(cfg.File, ".yml"):
 		err := yaml.Unmarshal(b, &secret)
 		if err != nil {
 			return errors.Wrap(err, "unmarshal yaml")
