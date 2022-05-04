@@ -66,7 +66,10 @@ seeder:
 Для загрузки данных выполните команду:
 
 ```shell
-SEEDER_VAULT_ADDRESS=http://localhost:8200 SEEDER_VAULT_TOKEN=secret seeder
+export SEEDER_VAULT_ADDRESS=http://localhost:8200
+export SEEDER_VAULT_TOKEN=secret
+
+seeder
 ```
 
 !!! note

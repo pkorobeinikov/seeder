@@ -122,7 +122,9 @@ seeder:
 Для загрузки данных выполните команду:
 
 ```shell
-SEEDER_PG_CONNSTR="postgres://postgres:secret@localhost:5432/seeder" seeder
+export SEEDER_PG_CONNSTR="postgres://postgres:secret@localhost:5432/seeder"
+
+seeder
 ```
 
 !!! note
