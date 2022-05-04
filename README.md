@@ -6,6 +6,12 @@ The only tool for seeding volumes and storages (including databases as well).
 
 https://pkorobeinikov.github.io/seeder/
 
+## Tutorials
+
+- `postgres`: https://pkorobeinikov.github.io/seeder/tutorial/postgres/
+- `vault`: https://pkorobeinikov.github.io/seeder/tutorial/vault/
+- `s3`: https://pkorobeinikov.github.io/seeder/tutorial/s3/
+
 ## Known seeders
 
 - s3

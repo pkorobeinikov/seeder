@@ -19,8 +19,8 @@ nav:
   - Быстрый старт: quick-start.md
   - Туториал:
       - Postgres: tutorial/postgres.md
-      - S3: tutorial/s3.md
       - Vault: tutorial/vault.md
+      - S3: tutorial/s3.md
   - Разработка:
       - ADR:
           - 1. Record architecture decisions: development/adr/0001-record-architecture-decisions.md
