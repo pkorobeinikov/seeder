@@ -1,5 +1,6 @@
 services:
   minio:
+    container_name: minio
     image: "quay.io/minio/minio"
     ports:
       - 9100:9100
