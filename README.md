@@ -2,6 +2,10 @@
 
 The only tool for seeding volumes and storages (including databases as well).
 
+## Docs
+
+https://pkorobeinikov.github.io/seeder/
+
 ## Known seeders
 
 - s3
