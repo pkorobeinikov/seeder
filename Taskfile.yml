@@ -4,14 +4,16 @@ tasks:
 
   doc:run:
     desc: Run documentation locally
+    dir: seeder-doc
     cmds:
       - |
         docker run \
+          --name seeder-doc \
           --pull always \
           --rm \
           -p 8000:8000 \
-          -v ${PWD}/seeder-doc:/docs \
-          squidfunk/mkdocs-material
+          -v ${PWD}:/docs \
+          squidfunk/mkdocs-material serve --dev-addr=0.0.0.0:8000 --watch-theme
 
   image:build:
     desc: Build Docker image

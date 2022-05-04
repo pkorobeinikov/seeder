@@ -7,13 +7,18 @@ theme:
   features:
     - toc.integrate
     - navigation.tracking
+    - content.code.annotate
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
 nav:
   - Введение: index.md
   - Установка:
       - Из исходного кода: install/from-source-code.md
   - Быстрый старт: quick-start.md
   - Туториал:
-      - Postgresql: tutorial/postgresql.md
+      - Postgres: tutorial/postgres.md
       - S3: tutorial/s3.md
       - Vault: tutorial/vault.md
   - Разработка:

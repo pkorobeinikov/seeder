@@ -1,6 +1,0 @@
-seeder:
-  state:
-    - name: postgres file seed
-      type: postgres
-      config:
-        - file: seed.sql

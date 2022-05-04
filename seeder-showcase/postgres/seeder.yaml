@@ -1,0 +1,11 @@
+seeder:
+  state:
+    - name: postgres file seed
+      type: postgres
+      config:
+        - file: seed/seed.sql
+
+    - name: postgres plpgsql file seed
+      type: postgres
+      config:
+        - file: seed/seed_plpgsql.sql
