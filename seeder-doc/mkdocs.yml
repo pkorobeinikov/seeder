@@ -1,4 +1,7 @@
 site_name: seeder
+repo_url: https://github.com/pkorobeinikov/seeder
+repo_name: pkorobeinikov/seeder
+edit_uri: ""
 theme:
   name: material
   features:
