@@ -1,0 +1,14 @@
+services:
+  minio:
+    container_name: minio
+    image: "quay.io/minio/minio"
+    ports:
+      - 9100:9100
+      - 9101:9101
+    volumes:
+      - .:/showcase
+    working_dir: /showcase
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+    command: server /data --address ":9100" --console-address ":9101"

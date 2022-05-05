@@ -8,7 +8,7 @@ seeder:
           option:
             content-type: text/plain
             content-encoding: utf8
-          file: seed.txt
+          file: seed/seed.txt
 
     - name: s3 json file seed
       type: s3
@@ -18,4 +18,4 @@ seeder:
           option:
             content-type: application/json
             content-encoding: utf8
-          file: seed.json
+          file: seed/seed.json

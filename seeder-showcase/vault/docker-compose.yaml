@@ -1,0 +1,14 @@
+services:
+  vault:
+    container_name: vault
+    image: vault:1.9.2
+    ports:
+      - 8200:8200
+    volumes:
+      - .:/showcase
+    working_dir: /showcase
+    environment:
+      VAULT_DEV_LISTEN_ADDRESS: ${VAULT_DEV_LISTEN_ADDRESS}
+      VAULT_DEV_ROOT_TOKEN_ID: ${VAULT_DEV_ROOT_TOKEN_ID}
+    cap_add:
+      - IPC_LOCK

@@ -3,9 +3,9 @@ seeder:
     - name: kafka seed json file
       type: kafka
       config:
-        - file: seed.json
+        - file: seed/seed.json
 
     - name: kafka seed yml file
       type: kafka
       config:
-        - file: seed.yml
+        - file: seed/seed.yml

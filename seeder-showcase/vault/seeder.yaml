@@ -4,8 +4,8 @@ seeder:
       type: vault
       config:
         - key: "secret/data/seed/file/json"
-          file: seed.json
+          file: seed/seed.json
         - key: "secret/data/seed/file/yaml"
-          file: seed.yaml
+          file: seed/seed.yaml
         - key: "secret/data/seed/file/yml"
-          file: seed.yml
+          file: seed/seed.yml

@@ -7,15 +7,23 @@ theme:
   features:
     - toc.integrate
     - navigation.tracking
+    - content.code.annotate
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - attr_list
+  - md_in_html
 nav:
   - Введение: index.md
   - Установка:
       - Из исходного кода: install/from-source-code.md
   - Быстрый старт: quick-start.md
   - Туториал:
-      - Postgresql: tutorial/postgresql.md
-      - S3: tutorial/s3.md
+      - Postgres: tutorial/postgres.md
       - Vault: tutorial/vault.md
+      - S3: tutorial/s3.md
+      - Kafka: tutorial/kafka.md
   - Разработка:
       - ADR:
           - 1. Record architecture decisions: development/adr/0001-record-architecture-decisions.md
