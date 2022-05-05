@@ -23,6 +23,7 @@ nav:
       - Postgres: tutorial/postgres.md
       - Vault: tutorial/vault.md
       - S3: tutorial/s3.md
+      - Kafka: tutorial/kafka.md
   - Разработка:
       - ADR:
           - 1. Record architecture decisions: development/adr/0001-record-architecture-decisions.md

@@ -11,13 +11,7 @@ https://pkorobeinikov.github.io/seeder/
 - `postgres`: https://pkorobeinikov.github.io/seeder/tutorial/postgres/
 - `vault`: https://pkorobeinikov.github.io/seeder/tutorial/vault/
 - `s3`: https://pkorobeinikov.github.io/seeder/tutorial/s3/
-
-## Known seeders
-
-- s3
-- vault
-- postgres
-- kafka
+- `kafka`: https://pkorobeinikov.github.io/seeder/tutorial/kafka/
 
 ## Install
 
