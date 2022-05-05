@@ -37,7 +37,11 @@ seeder:
 
 ## Docs
 
-https://pkorobeinikov.github.io/seeder/
+- https://pkorobeinikov.github.io/seeder/
+
+## Quick start
+
+- https://pkorobeinikov.github.io/seeder/quick-start/
 
 ## Tutorials
 
