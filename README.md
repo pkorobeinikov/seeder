@@ -3,7 +3,7 @@
 The only tool for reproducible seeding volumes and storages (including databases
 as well).
 
-## Example config: `seeder.yaml`
+## `seeder.yaml` — the :gear: of reproducible seeding
 
 <!-- @formatter:off -->
 ```yaml
