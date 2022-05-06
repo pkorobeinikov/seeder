@@ -12,8 +12,11 @@ markdown_extensions:
   - admonition
   - pymdownx.details
   - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
   - attr_list
   - md_in_html
+  - def_list
 nav:
   - Введение: index.md
   - Установка:
@@ -29,3 +32,4 @@ nav:
           - 1. Record architecture decisions: development/adr/0001-record-architecture-decisions.md
           - 2. Use strict YAML configuration format: development/adr/0002-use-strict-yaml-configuration-format.md
           - 3. Vault seeding spec: development/adr/0003-vault-seeding-spec.md
+      - Roadmap: development/roadmap.md
