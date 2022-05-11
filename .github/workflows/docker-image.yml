@@ -17,5 +17,4 @@ jobs:
       - name: Build seeder Docker image
         run: |
           docker build --tag ghcr.io/${{ github.actor }}/seeder:latest --file Dockerfile seeder
-          docker run ghcr.io/${{ github.actor }}/seeder:latest
           docker push ghcr.io/${{ github.actor }}/seeder:latest
