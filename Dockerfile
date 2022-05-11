@@ -14,6 +14,8 @@ RUN CGO_ENABLED=0 GOOS=linux go build -a -v -ldflags="-w -s" -o /bin/seeder cmd/
 
 FROM scratch
 
+LABEL org.opencontainers.image.source="https://github.com/pkorobeinikov/seeder"
+
 COPY --from=builder /bin/seeder /bin/seeder
 
 ENTRYPOINT ["/bin/seeder"]
