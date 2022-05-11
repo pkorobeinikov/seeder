@@ -1,0 +1,21 @@
+name: docker-image
+on:
+  push:
+    branches:
+      - main
+jobs:
+  docker-image:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: GitHub Container Registry Login
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.CR_PAT }}
+      - name: Build seeder Docker image
+        run: |
+          docker build --tag ghcr.io/${{ github.actor }}/seeder:latest --file Dockerfile seeder
+          docker run ghcr.io/${{ github.actor }}/seeder:latest
+          docker push ghcr.io/${{ github.actor }}/seeder:latest

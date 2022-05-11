@@ -14,13 +14,3 @@ tasks:
           -p 8000:8000 \
           -v ${PWD}:/docs \
           squidfunk/mkdocs-material serve --dev-addr=0.0.0.0:8000 --watch-theme
-
-  image:build:
-    desc: Build Docker image
-    cmds:
-      - docker build --tag ghcr.io/pkorobeinikov/seeder --file Dockerfile seeder
-
-  image:push:
-    desc: Publish Docker image
-    cmds:
-      - docker push ghcr.io/pkorobeinikov/seeder
