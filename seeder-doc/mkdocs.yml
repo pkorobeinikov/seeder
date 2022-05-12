@@ -19,8 +19,7 @@ markdown_extensions:
   - def_list
 nav:
   - Введение: index.md
-  - Установка:
-      - Из исходного кода: install/from-source-code.md
+  - Установка: install.md
   - Быстрый старт: quick-start.md
   - Туториал:
       - Postgres: tutorial/postgres.md

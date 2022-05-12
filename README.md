@@ -52,12 +52,9 @@ seeder:
 
 ## Install
 
-```shell
-$ cd ./seeder
-$ go install ./cmd/...
-```
+- https://pkorobeinikov.github.io/seeder/install/
 
-## Flags
+## Flags (needs rework 🚧)
 
 - `-c` allows to specify seeder configuration file.
   > Note: dir from config file will be used as working dir for seed files.
