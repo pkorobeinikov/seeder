@@ -33,7 +33,7 @@ export DOCKER_HOST_IP=$(minikube --profile minikube ip)
 Разверните локальное окружение:
 
 ```shell
-docker compose up [-d]
+docker compose up -d
 ```
 
 !!! note
@@ -96,6 +96,14 @@ seeder
   ![Image title](asset/topic.png)
   <figcaption>Содержимое топика</figcaption>
 </figure>
+
+## Остановка локального окружения
+
+Для остановки локального окружения выполните команду:
+
+```shell
+docker compose down
+```
 
 ## Резюме
 

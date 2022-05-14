@@ -19,7 +19,7 @@ cd seeder-showcase/postgres
 Разверните локальное окружение:
 
 ```shell
-docker compose up [-d]
+docker compose up -d
 ```
 
 !!! note
@@ -166,6 +166,14 @@ seeder=# table app.person \g
  4de86230-dd75-4946-bf85-d597b4ff2951 | Dorothy   | Martinez
  9fdca959-671a-4613-9df4-2f16c8733f83 | Pamela    | Lawson
  f8f7bafd-93c4-4975-b699-8093dca10d00 | Barbara   | Roth
+```
+
+## Остановка локального окружения
+
+Для остановки локального окружения выполните команду:
+
+```shell
+docker compose down
 ```
 
 ## Резюме

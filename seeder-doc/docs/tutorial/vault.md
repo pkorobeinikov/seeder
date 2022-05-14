@@ -19,7 +19,7 @@ cd seeder-showcase/vault
 Разверните локальное окружение:
 
 ```shell
-docker compose up [-d]
+docker compose up -d
 ```
 
 !!! note
@@ -97,6 +97,14 @@ docker exec \
   -e VAULT_ADDR='http://127.0.0.1:8200' \
   -e VAULT_TOKEN=secret \
   vault vault kv get secret/seed/file/json
+```
+
+## Остановка локального окружения
+
+Для остановки локального окружения выполните команду:
+
+```shell
+docker compose down
 ```
 
 ## Резюме
