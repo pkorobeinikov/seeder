@@ -17,6 +17,7 @@ type (
 
 	Config struct {
 		File       string `yaml:"file"`
+		SQL        string `yaml:"sql"`
 		Key        string `yaml:"key"`
 		Bucket     string `yaml:"bucket"`
 		ObjectName string `yaml:"object-name"`

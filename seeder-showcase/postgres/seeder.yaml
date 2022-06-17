@@ -9,3 +9,11 @@ seeder:
       type: postgres
       config:
         - file: seed/seed_plpgsql.sql
+
+    - name: postgres inline seed
+      type: postgres
+      config:
+        - sql: |
+            insert into app.record
+            select gen_random_uuid(), 'Record ' || _
+            from generate_series(1, 5) _

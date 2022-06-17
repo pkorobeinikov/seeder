@@ -102,6 +102,14 @@ seeder:
       type: postgres # (3)
       config:
         - file: seed/seed_plpgsql.sql # (4)
+
+    - name: postgres inline seed
+      type: postgres
+      config:
+        - sql: | # (5)
+            insert into app.record
+            select gen_random_uuid(), 'Record ' || _
+            from generate_series(1, 5) _
 ```
 <!-- @formatter:on -->
 
@@ -109,10 +117,13 @@ seeder:
 2. Путь до файла с данными
 3. Тип целевого хранилища
 4. Путь до файла с данными
+5. Встроенное определение данных
 
-В спецификации описано два сида: `seed/seed.sql` и `seed/seed_plpgsql.sql` —
-первый использует обычные команды `sql`, второй — блок кода на `plpgsql`,
-обёрнутый в оператор `do`.
+В спецификации описано три типа сидов:
+
+- `seed/seed.sql` использует обычные команды `sql`
+- `seed/seed_plpgsql.sql` — блок кода на `plpgsql`, обёрнутый в оператор `do`
+- данные в третьем блоке определены прямо в файле `seeder.yaml`
 
 Принциписальной разницы между примерами нет, однако блок кода на `plpgsql`
 обладает большей гибкостью, чем обычный `sql`.
